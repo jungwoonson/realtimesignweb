@@ -1,10 +1,20 @@
 package com.toy.boardserver.realtimesignweb.sign;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import java.io.IOException;
 
 @Controller
 public class SignController {
+
+    private final SseEmittersService sseEmittersService;
+
+    public SignController(SseEmittersService sseEmittersService) {
+        this.sseEmittersService = sseEmittersService;
+    }
 
     @GetMapping
     public String index() {
@@ -21,4 +31,13 @@ public class SignController {
         return "client.html";
     }
 
+    @GetMapping(value = "/sse/{token}", produces = "text/event-stream")
+    public SseEmitter sseConnection(HttpServletRequest request, @PathVariable String token) throws IOException {
+        return sseEmittersService.connect(token);
+    }
+
+    @PatchMapping(value = "/sse/{uuid}", produces = "text/evnet-stream")
+    public void sseDoSomething(@PathVariable String uuid) throws IOException {
+        sseEmittersService.doSomething(uuid);
+    }
 }

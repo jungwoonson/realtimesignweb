@@ -5,6 +5,16 @@
     <title>창구 직원용</title>
 </head>
 <body>
-창구직원 페이지
+<script>
+    function sendEvent() {
+        let input = document.getElementById('uuid-input');
+
+        const httpRequest = new XMLHttpRequest();
+        httpRequest.open("PATCH", '/sse/' + input.value);
+        httpRequest.send();
+    }
+</script>
+<button type="button" onclick="sendEvent()">전송</button>
+<label for="uuid-input">uuid : </label><input type="text" id="uuid-input"/>
 </body>
 </html>

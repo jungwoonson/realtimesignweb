@@ -5,6 +5,35 @@
     <title>고객용</title>
 </head>
 <body>
-고객용
+<script>
+    function connect() {
+        if (!!window.EventSource) {
+            let source = new EventSource('/sse/token');
+
+            source.addEventListener('message', function(e) {
+                const p = document.createElement('p');
+                p.innerHTML = '연결성공!<br>';
+                p.innerHTML += e.data;
+                document.getElementById('eventLog').insertAdjacentElement('beforeend', p);
+            }, false);
+
+            source.addEventListener('open', function(e) {
+                console.log('open event');
+            }, false);
+
+            source.addEventListener('error', function(e) {
+                console.log('error event');
+                if (e.readyState === EventSource.CLOSED) {
+                    console.log(e.data);
+                }
+            }, false);
+        } else {
+            // Result to xhr polling :(
+        }
+    }
+</script>
+<button type="button" onclick="connect()">연결</button>
+<div id="eventLog">
+</div>
 </body>
 </html>
