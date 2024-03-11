@@ -11,4 +11,14 @@ public class SignController {
         return "index.html";
     }
 
+    @GetMapping("/server")
+    public String server() {
+        return "server.html";
+    }
+
+    @GetMapping("client")
+    public String client() {
+        return "client.html";
+    }
+
 }
