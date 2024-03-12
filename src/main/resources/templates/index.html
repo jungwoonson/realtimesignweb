@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" >
     <meta charset="UTF-8">
     <title>실시간 웹 서명</title>
 </head>
 <body>
 <!-- 스크립트 부분 -->
 <script type="text/javascript">
+    document.body.style.overflow = 'hidden';
+
     if (window.addEventListener) {
         window.addEventListener('load', InitEvent, false);
     }
@@ -146,7 +149,7 @@
 <div style="padding-bottom:15px;width:98%;">
     <span style="font-weight:bold;">서명 후 꼭~ 우측 하단의 '저장' 버튼을 클릭해주세요.</span>
     <br />
-    <canvas id="drawCanvas" width="300" height="150" style=" position: relative; border: 1px solid #000;"></canvas>
+    <canvas id="drawCanvas" width="400" height="400" style=" position: relative; border: 1px solid #000;"></canvas>
     <img id="myImage" style="display:none"/>
     <br />
     <a href="javascript:void(0);" onclick="onClear();">지우기</a>
