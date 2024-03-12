@@ -12,16 +12,15 @@ public class SseEmittersService {
     private final SseEmitters sseEmitters = new SseEmitters();
 
     public SseEmitter connect(String token) throws IOException {
-        String uuid = UUID.randomUUID().toString().toLowerCase();
-        return sseEmitters.add(token, uuid);
+        return sseEmitters.add(token);
     }
 
-    public void doSomething(String uuid) throws IOException {
-        if (!sseEmitters.hasKey(uuid)) {
+    public void doSomething(String token) throws IOException {
+        if (!sseEmitters.hasKey(token)) {
             return;
         }
-        SseEmitter emitter = sseEmitters.get(uuid);
-        emitter.send(SseEmitter.event().id(uuid).data("이벤트 발생!!"));
+        SseEmitter emitter = sseEmitters.get(token);
+        emitter.send(SseEmitter.event().id(token).data("이벤트 발생!!"));
         // 연결 종료시 사용
         // emitter.complete();
     }

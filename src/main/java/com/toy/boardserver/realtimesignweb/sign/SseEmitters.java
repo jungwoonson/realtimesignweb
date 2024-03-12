@@ -11,24 +11,24 @@ public class SseEmitters {
     public static final long TIMEOUT = 60L * 60L * 1000;
     private final ConcurrentHashMap<String, SseEmitter> emitters = new ConcurrentHashMap<>();
 
-    public SseEmitter add(String token, String uuid) throws IOException {
+    public SseEmitter add(String token) throws IOException {
         SseEmitter emitter = new SseEmitter(TIMEOUT);
-        emitters.put(uuid, emitter);
+        emitters.put(token, emitter);
 
-        emitter.onCompletion(() -> this.emitters.remove(uuid));
-        emitter.onTimeout(() -> this.emitters.remove(uuid));
-        emitter.onError((callback) -> this.emitters.remove(uuid));
+        emitter.onCompletion(() -> this.emitters.remove(token));
+        emitter.onTimeout(() -> this.emitters.remove(token));
+        emitter.onError((callback) -> this.emitters.remove(token));
 
-        emitter.send(SseEmitter.event().id(token).data(uuid));
+        emitter.send(SseEmitter.event().id(token).data(token));
 
         return emitter;
     }
 
-    public boolean hasKey(String uuid) {
-        return this.emitters.containsKey(uuid);
+    public boolean hasKey(String token) {
+        return this.emitters.containsKey(token);
     }
 
-    public SseEmitter get(String uuid) {
-        return this.emitters.get(uuid);
+    public SseEmitter get(String token) {
+        return this.emitters.get(token);
     }
 }

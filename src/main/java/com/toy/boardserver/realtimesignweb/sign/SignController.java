@@ -36,8 +36,8 @@ public class SignController {
         return sseEmittersService.connect(token);
     }
 
-    @PatchMapping(value = "/sse/{uuid}", produces = "text/evnet-stream")
-    public void sseDoSomething(@PathVariable String uuid) throws IOException {
-        sseEmittersService.doSomething(uuid);
+    @PatchMapping(value = "/sse/{token}")
+    public void sseDoSomething(@PathVariable String token) throws IOException {
+        sseEmittersService.doSomething(token);
     }
 }

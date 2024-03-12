@@ -5,14 +5,15 @@
     <title>고객용</title>
 </head>
 <body>
+
 <script>
     function connect() {
         if (!!window.EventSource) {
-            let source = new EventSource('/sse/token');
+            let clientId = document.getElementById('server-input').value;
+            let source = new EventSource('/sse/' + clientId);
 
             source.addEventListener('message', function(e) {
                 const p = document.createElement('p');
-                p.innerHTML = '연결성공!<br>';
                 p.innerHTML += e.data;
                 document.getElementById('eventLog').insertAdjacentElement('beforeend', p);
             }, false);
@@ -31,8 +32,21 @@
             // Result to xhr polling :(
         }
     }
+
+    function sendEvent() {
+        let input = document.getElementById('client-input');
+
+        const httpRequest = new XMLHttpRequest();
+        httpRequest.open("PATCH", '/sse/' + input.value);
+        httpRequest.send();
+    }
 </script>
-<button type="button" onclick="connect()">연결</button>
+<label for="server-input">server ID : </label><input type="text" id="server-input"/>
+<button type="button" onclick="connect()">접속</button>
+
+<label for="client-input">client ID : </label><input type="text" id="client-input"/>
+<button type="button" onclick="sendEvent()">전송</button>
+
 <div id="eventLog">
 </div>
 </body>
