@@ -1,158 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" >
     <meta charset="UTF-8">
-    <title>실시간 웹 서명</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전자서명 대기명단</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-<!-- 스크립트 부분 -->
-<script type="text/javascript">
-    document.body.style.overflow = 'hidden';
-
-    if (window.addEventListener) {
-        window.addEventListener('load', InitEvent, false);
-    }
-
-    let canvas, context, tool;
-
-    function InitEvent() {
-        canvas = document.getElementById('drawCanvas');
-        if (!canvas) {
-            alert("캔버스 객체를 찾을 수 없음");
-            return;
-        }
-        if (!canvas.getContext) {
-            alert("Drawing Contextf를 찾을 수 없음");
-            return;
-        }
-        context = canvas.getContext('2d');
-        if (!context) {
-            alert("getContext() 함수를 호출 할 수 없음");
-            return;
-        }
-        // Pencil tool 객체를 생성 한다.
-        tool = new ToolPencil();
-        canvas.addEventListener('mousedown', ev_canvas, false);
-        canvas.addEventListener('mousemove', ev_canvas, false);
-        canvas.addEventListener('mouseup', ev_canvas, false);
-        canvas.addEventListener('touchstart', ev_canvas, false);
-        canvas.addEventListener('touchmove', ev_canvas, false);
-        canvas.addEventListener('touchend', ev_canvas, false);
-    }
-
-    class ToolPencil {
-        constructor() {
-            this.started = false;
-        }
-
-        // 시작 지점 설정
-        startDraw = (x, y) => {
-            context.beginPath();
-            context.moveTo(x, y);
-            this.started = true;
-        };
-
-        // 그리기 계속
-        continueDraw = (x, y) => {
-            if (this.started) {
-                context.lineTo(x, y);
-                context.stroke();
-            }
-        };
-
-        // 그리기 중단
-        stopDraw = () => {
-            this.started = false;
-        };
-
-        // 마우스 누를 때
-        mousedown = (ev) => {
-            this.startDraw(ev._x, ev._y);
-        };
-
-        // 마우스 움직일 때
-        mousemove = (ev) => {
-            this.continueDraw(ev._x, ev._y);
-        };
-
-        // 마우스 떼었을 때
-        mouseup = (ev) => {
-            if (this.started) {
-                this.continueDraw(ev._x, ev._y);
-                this.stopDraw();
-            }
-        };
-
-        // 터치 시작할 때
-        touchstart = (ev) => {
-            this.startDraw(ev._x, ev._y);
-        };
-
-        // 터치 움직일 때
-        touchmove = (ev) => {
-            this.continueDraw(ev._x, ev._y);
-        };
-
-        // 터치 끝났을 때
-        touchend = (ev) => {
-            if (this.started) {
-                this.continueDraw(ev._x, ev._y);
-                this.stopDraw();
-            }
-        };
-    }
-
-    // Canvas 요소 내의 좌표를 결정 한다.
-    function ev_canvas(ev) {
-        // 좌표 초기화
-        let _x = 0;
-        let _y = 0;
-
-        // Firefox 및 Opera 브라우저에서의 좌표 처리
-        if (typeof ev.layerX === "number") {
-            _x = ev.layerX;
-            _y = ev.layerY;
-        }
-        if (typeof ev.offsetX === "number") {
-            _x = ev.offsetX;
-            _y = ev.offsetY;
-        }
-        if (ev.targetTouches && ev.targetTouches[0]) {
-            // 터치 이벤트 처리: 캔버스 상대 위치 계산
-            const rect = canvas.getBoundingClientRect(); // 캔버스의 절대 위치 정보를 활용
-            _x = ev.targetTouches[0].pageX - rect.left - window.scrollX;
-            _y = ev.targetTouches[0].pageY - rect.top - window.scrollY;
-        }
-
-        // 확장된 이벤트 객체에 좌표 저장
-        ev._x = _x;
-        ev._y = _y;
-
-        // 해당 이벤트 타입에 대응하는 도구의 이벤트 핸들러 호출
-        const func = tool[ev.type];
-        if (func) {
-            func(ev);
-        }
-    }
-
-    function onClear() {
-        canvas = document.getElementById('drawCanvas');
-        context.save();
-        context.setTransform(1, 0, 0, 1, 0, 0);
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.restore();
-    }
-</script>
-
-<!-- html body 부분 -->
-<div style="padding-bottom:15px;width:98%;">
-    <span style="font-weight:bold;">서명 후 꼭~ 우측 하단의 '저장' 버튼을 클릭해주세요.</span>
-    <br />
-    <canvas id="drawCanvas" width="400" height="400" style=" position: relative; border: 1px solid #000;"></canvas>
-    <img id="myImage" style="display:none"/>
-    <br />
-    <a href="javascript:void(0);" onclick="onClear();">지우기</a>
-</div>
+<main class="wrap">
+    <h1>전자서명 대기명단</h1>
+    <a href="./data.html" class="user_section">
+        <h2>김인재</h2>
+        <p>010-7235-4520</p>
+    </a>
+    <section class="time_section">
+        <h3>04 : 59</h3>
+        <p>본인 인적정보 확인 후 선택하십시오.</p>
+    </section>
+</main>
 </body>
 </html>

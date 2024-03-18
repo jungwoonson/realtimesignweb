@@ -1,0 +1,34 @@
+/* songayeon 2024 */
+@font-face {
+	font-family: 'Pretendard';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Pretendard'),
+			url('/fonts/Pretendard-Regular.woff2') format('woff2'), 
+			url('/fonts/Pretendard-Regular.woff') format('woff'),
+			/* url('fonts/Pretendard-Regular.ttf') format('truetype'),
+			url('fonts/Pretendard-Regular.otf') format('opentype'),
+			url('fonts/Pretendard-Regular.eot') format('embedded-opentype'); */
+}
+@font-face {
+	font-family: 'Pretendard';
+	font-style: normal;
+	font-weight: 500;
+	src: local('Pretendard'),
+			url('/fonts/Pretendard-Medium.woff2') format('woff2'), 
+			url('/fonts/Pretendard-Medium.woff') format('woff'),
+			/* url('fonts/Pretendard-Medium.ttf') format('truetype'),
+			url('fonts/Pretendard-Medium.otf') format('opentype'),
+			url('fonts/Pretendard-Medium.eot') format('embedded-opentype'); */
+}
+@font-face {
+	font-family: 'Pretendard';
+	font-style: normal;
+	font-weight: 600;
+	src: local('Pretendard'),
+			url('/fonts/Pretendard-Bold.woff2') format('woff2'), 
+			url('/fonts/Pretendard-Bold.woff') format('woff'),
+			/* url('fonts/Pretendard-Bold.ttf') format('truetype'),
+			url('fonts/Pretendard-Bold.otf') format('opentype'),
+			url('fonts/Pretendard-Bold.eot') format('embedded-opentype'); */
+}
