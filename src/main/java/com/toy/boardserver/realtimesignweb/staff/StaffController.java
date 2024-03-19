@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ public class StaffController {
     private static final String TEMPLATE_ROOT = "staff";
 
     private static final String SESSION_KEY_NAME = "staffKey";
+    private static final String SESSION_GUEST_KEY = "guestKey";
 
     private final StaffService staffService;
 
@@ -31,8 +33,13 @@ public class StaffController {
     }
 
     @GetMapping
+    public String waiting() {
+        return String.format("/%s/%s", TEMPLATE_ROOT, "waiting.html");
+    }
+
+    @GetMapping("/index")
     public String index() {
-        return String.format("%s/%s", TEMPLATE_ROOT, "waiting.html");
+        return String.format("/%s/%s", TEMPLATE_ROOT, "index.html");
     }
 
     @GetMapping("/connect")
@@ -53,5 +60,14 @@ public class StaffController {
         Set<String> uuids = guestService.guestUUIDs();;
         return ResponseEntity.ok()
                 .body(uuids);
+    }
+
+    @GetMapping("/choice")
+    public ResponseEntity<String> choice(HttpServletRequest request, @RequestParam String guest) throws IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute(SESSION_GUEST_KEY, guest);
+        guestService.goIndex(guest, (String) session.getAttribute(SESSION_KEY_NAME));
+        return ResponseEntity.noContent()
+                .build();
     }
 }

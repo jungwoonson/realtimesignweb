@@ -1,7 +1,6 @@
 package com.toy.boardserver.realtimesignweb.guest;
 
 import com.toy.boardserver.realtimesignweb.sign.SseEmitters;
-import com.toy.boardserver.realtimesignweb.staff.StaffService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -23,5 +22,10 @@ public class GuestService {
 
     public SseEmitter findEmitter(String uuid) {
         return guestEmitters.get(uuid);
+    }
+
+    public void goIndex(String guestKey, String staffKey) throws IOException {
+        SseEmitter emitter = guestEmitters.get(guestKey);
+        emitter.send("go index|" + staffKey);
     }
 }

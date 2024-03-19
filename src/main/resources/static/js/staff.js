@@ -61,7 +61,9 @@ function findGuests() {
             const button = document.createElement('button');
             button.innerHTML = '선택';
             button.type = 'button';
-            button.onclick = choiceGuest;
+            button.onclick = () => {
+                choiceGuest(guests[i]);
+            }
 
             const td3 = document.createElement('td');
             td3.insertAdjacentElement('beforeend', button);
@@ -79,6 +81,22 @@ function findGuests() {
     xhr.send();
 }
 
-function choiceGuest() {
+function choiceGuest(value) {
+    const xhr = new XMLHttpRequest();
+    const url = '/staff/choice?guest=' + value;
 
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState !== XMLHttpRequest.DONE) {
+            return;
+        }
+
+        if (xhr.status !== 204) {
+            return;
+        }
+
+        window.location.href = '/staff/index'
+    }
+
+    xhr.open('GET', url);
+    xhr.send();
 }
