@@ -26,7 +26,7 @@ public class SignController {
         return "server.html";
     }
 
-    @GetMapping("client")
+    @GetMapping("/client")
     public String client() {
         return "client.html";
     }

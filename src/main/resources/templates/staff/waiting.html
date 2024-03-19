@@ -3,8 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>직원페이지</title>
+
+    <script type="application/javascript" src="/js/staff.js"></script>
 </head>
 <body>
-    고객 접속 대기중...
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <td>순번</td>
+                <td>기기이름</td>
+                <td>기능</td>
+            </tr>
+            </thead>
+            <tbody id="guest-list">
+            <tr>
+                <td colspan="3">
+                    기기 접속 대기중....
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="button" onclick="findGuests()">재검색</button>
+    </div>
 </body>
 </html>

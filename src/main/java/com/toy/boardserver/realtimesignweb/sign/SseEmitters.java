@@ -3,6 +3,7 @@ package com.toy.boardserver.realtimesignweb.sign;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class SseEmitters {
@@ -30,5 +31,9 @@ public class SseEmitters {
 
     public SseEmitter get(String token) {
         return this.emitters.get(token);
+    }
+
+    public Set<String> keySet() {
+        return emitters.keySet();
     }
 }
