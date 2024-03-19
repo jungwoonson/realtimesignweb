@@ -39,6 +39,13 @@ public class GuestController {
         return String.format("/%s/%s", TEMPLATE_ROOT, "index.html");
     }
 
+    @GetMapping("/terms")
+    public String event(HttpServletRequest request) throws IOException {
+        HttpSession session = request.getSession();
+        staffService.sendEvent((String) session.getAttribute(SESSION_STAFF_KEY), "go terms");
+        return String.format("/%s/%s", TEMPLATE_ROOT, "terms.html");
+    }
+
     @GetMapping( "/connect/{device}")
     public SseEmitter connect(HttpServletRequest request, @PathVariable String device) throws IOException {
         HttpSession session = request.getSession();
@@ -53,5 +60,11 @@ public class GuestController {
         request.getSession().setAttribute(SESSION_STAFF_KEY, body.get("staffKey"));
         return ResponseEntity.noContent()
                 .build();
+    }
+
+    @GetMapping("/goterms")
+    public void goterms(HttpServletRequest request) throws IOException {
+        HttpSession session = request.getSession();
+        staffService.sendEvent((String) session.getAttribute(SESSION_STAFF_KEY), "go terms");
     }
 }

@@ -42,6 +42,11 @@ public class StaffController {
         return String.format("/%s/%s", TEMPLATE_ROOT, "index.html");
     }
 
+    @GetMapping("/terms")
+    public String terms() {
+        return String.format("/%s/%s", TEMPLATE_ROOT, "terms.html");
+    }
+
     @GetMapping("/connect")
     public SseEmitter connect(HttpServletRequest request) throws IOException {
         HttpSession session = request.getSession();

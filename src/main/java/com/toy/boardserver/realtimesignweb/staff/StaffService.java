@@ -22,4 +22,9 @@ public class StaffService {
     public void refreshGuestList() {
         staffEmitters.sendEventToAll("refresh guest");
     }
+
+    public void sendEvent(String staffKey, String event) throws IOException {
+        SseEmitter emitter = staffEmitters.get(staffKey);
+        emitter.send(event);
+    }
 }
