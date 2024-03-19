@@ -63,8 +63,10 @@ public class GuestController {
     }
 
     @GetMapping("/goterms")
-    public void goterms(HttpServletRequest request) throws IOException {
+    public ResponseEntity<String> goterms(HttpServletRequest request) throws IOException {
         HttpSession session = request.getSession();
         staffService.sendEvent((String) session.getAttribute(SESSION_STAFF_KEY), "go terms");
+        return ResponseEntity.noContent()
+                .build();
     }
 }
