@@ -36,4 +36,14 @@ public class SseEmitters {
     public Set<String> keySet() {
         return emitters.keySet();
     }
+
+    public void sendEventToAll(String event) {
+        emitters.forEach((key, emitter) -> {
+            try {
+                emitter.send(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
 }

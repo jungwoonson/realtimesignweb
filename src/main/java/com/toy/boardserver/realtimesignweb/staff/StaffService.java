@@ -18,4 +18,8 @@ public class StaffService {
     public SseEmitter findEmitter(String uuid) throws IOException {
         return staffEmitters.get(uuid);
     }
+
+    public void refreshGuestList() {
+        staffEmitters.sendEventToAll("refresh guest");
+    }
 }

@@ -11,7 +11,9 @@ function connect() {
 
     const source = new EventSource('/staff/connect');
     source.addEventListener('message', function(e) {
-        findGuests();
+        if (e.data === 'refresh guest') {
+            findGuests();
+        }
     }, false);
 
     source.addEventListener('open', function(e) {
@@ -40,9 +42,43 @@ function findGuests() {
             return;
         }
 
-        console.log(xhr.response);
+        const guests = JSON.parse(xhr.response);
+        const tbodyList = document.getElementById('guest-list');
+        tbodyList.innerHTML = '';
+
+        if (!!!guests.length) {
+            tbodyList.innerHTML = '<tr><td colspan="3">기기 접속 대기 중...</td></tr>';
+            return;
+        }
+
+        for (let i = 0; i < guests.length; i++) {
+            const td1 = document.createElement('td');
+            td1.innerHTML = i + 1;
+
+            const td2 = document.createElement('td');
+            td2.innerHTML = guests[i];
+
+            const button = document.createElement('button');
+            button.innerHTML = '선택';
+            button.type = 'button';
+            button.onclick = choiceGuest;
+
+            const td3 = document.createElement('td');
+            td3.insertAdjacentElement('beforeend', button);
+
+            const tr = document.createElement('tr');
+            tr.insertAdjacentElement('beforeend', td1);
+            tr.insertAdjacentElement('beforeend', td2);
+            tr.insertAdjacentElement('beforeend', td3);
+
+            tbodyList.insertAdjacentElement('beforeend', tr);
+        }
     }
 
     xhr.open('GET', url);
     xhr.send();
+}
+
+function choiceGuest() {
+
 }

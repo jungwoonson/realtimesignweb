@@ -1,5 +1,6 @@
 package com.toy.boardserver.realtimesignweb.guest;
 
+import com.toy.boardserver.realtimesignweb.staff.StaffService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -21,8 +22,11 @@ public class GuestController {
 
     private final GuestService guestService;
 
-    public GuestController(GuestService guestService) {
+    private final StaffService staffService;
+
+    public GuestController(GuestService guestService, StaffService staffService) {
         this.guestService = guestService;
+        this.staffService = staffService;
     }
 
     @GetMapping
@@ -33,12 +37,9 @@ public class GuestController {
     @GetMapping( "/connect/{device}")
     public SseEmitter connect(HttpServletRequest request, @PathVariable String device) throws IOException {
         HttpSession session = request.getSession();
-
-        if (session.getAttribute(SESSION_KEY_NAME) == null) {
-            session.setAttribute(SESSION_KEY_NAME, device);
-            return guestService.connect(device);
-        }
-
-        return guestService.findEmitter((String) session.getAttribute(SESSION_KEY_NAME));
+        session.setAttribute(SESSION_KEY_NAME, device);
+        SseEmitter emitter = guestService.connect(device);
+        staffService.refreshGuestList();
+        return emitter;
     }
 }
