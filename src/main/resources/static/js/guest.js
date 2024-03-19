@@ -1,19 +1,18 @@
-window.addEventListener("DOMContentLoaded", (event) => {
-    connect();
-});
-
 function connect() {
     if (!!!window.EventSource) {
         alert('SSE를 지원하지 않는 브라우저 입니다.');
         return;
     }
 
-    const source = new EventSource('/guest/connect');
+    const checkedElement = document.querySelector('input[type=radio]:checked');
+    const source = new EventSource('/guest/connect/' + checkedElement.value);
     source.addEventListener('message', function(e) {
     }, false);
 
     source.addEventListener('open', function(e) {
-        console.log('open event');
+        const deviceValue = checkedElement.value;
+        document.getElementById('devices').remove();
+        document.querySelector('body').innerText = deviceValue + ' 대기중...';
     }, false);
 
     source.addEventListener('error', function(e) {
