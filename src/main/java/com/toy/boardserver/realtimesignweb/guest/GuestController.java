@@ -69,4 +69,12 @@ public class GuestController {
         return ResponseEntity.noContent()
                 .build();
     }
+
+    @PostMapping("/terms/event")
+    public ResponseEntity<String> event(HttpServletRequest request, @RequestBody Map<String, String> body) throws IOException {
+        HttpSession session = request.getSession();
+        staffService.sendEvent((String) session.getAttribute(SESSION_STAFF_KEY), body);
+        return ResponseEntity.noContent()
+                .build();
+    }
 }
