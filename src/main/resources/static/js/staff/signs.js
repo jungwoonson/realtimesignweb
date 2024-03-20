@@ -15,9 +15,7 @@ function getSigns() {
             return;
         }
 
-        console.log(xhr.response);
         const sign = JSON.parse(xhr.response);
-        console.sign(sign);
         const tbodyList = document.getElementById('guest-list');
         tbodyList.innerHTML = '';
 
@@ -31,28 +29,28 @@ function getSigns() {
             td1.innerHTML = i + 1;
 
             const td2 = document.createElement('td');
-            td2.innerHTML = sign[i];
+            td2.innerHTML = sign[i].name;
 
             const td3 = document.createElement('td');
-            td2.innerHTML = sign[i];
+            td3.innerHTML = sign[i].phoneNumber;
 
             const td4 = document.createElement('td');
-            td2.innerHTML = sign[i];
+            td4.innerHTML = sign[i].check1;
 
             const td5 = document.createElement('td');
-            td2.innerHTML = sign[i];
+            td5.innerHTML = sign[i].check2;
 
             const td6 = document.createElement('td');
-            td2.innerHTML = sign[i];
-
-            const td7 = document.createElement('td');
-            td2.innerHTML = sign[i];
-
-            const td8 = document.createElement('td');
-            td2.innerHTML = sign[i];
+            td6.innerHTML = sign[i].check3;
 
             const img = document.createElement('img');
-            img.src = '';
+            img.src = sign[i].sign;
+
+            const td7 = document.createElement('td');
+            td7.insertAdjacentElement('beforeend', img);
+
+            const td8 = document.createElement('td');
+            td8.innerHTML = sign[i].createDateTime;
 
             const tr = document.createElement('tr');
             tr.insertAdjacentElement('beforeend', td1);

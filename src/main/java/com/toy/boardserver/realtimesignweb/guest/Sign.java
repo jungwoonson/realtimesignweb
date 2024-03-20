@@ -32,6 +32,34 @@ public class Sign implements Serializable {
         this.createDateTime = LocalDateTime.now();
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getCheck1() {
+        return check1;
+    }
+
+    public String getCheck2() {
+        return check2;
+    }
+
+    public String getCheck3() {
+        return check3;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
+    }
+
     @Override
     public String toString() {
         return "Sign{" +
