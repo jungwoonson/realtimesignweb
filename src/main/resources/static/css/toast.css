@@ -1,0 +1,43 @@
+.wb-toast {
+    /* 기타 스타일 설정 유지 */
+    top: 20px; /* 상단에서의 위치 */
+    right: 20px; /* 우측에서의 위치 */
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    position: fixed;
+    z-index: 1;
+    font-size: 17px;
+    transition: opacity 0.5s, top 0.5s ease;
+    opacity: 0; /* 초기에는 투명 */
+
+    padding: 16px 16px 14px;
+}
+
+.wb-toast-progress-container {
+    width: 100%;
+    background-color: #ccc;
+    height: 4px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.wb-toast-progress {
+    height: 4px;
+    background-color: #ff0000; /* 형광 녹색 */
+    width: 0;
+    transition: width 3s linear;
+}
+
+.wb-toast.show {
+    opacity: 1;
+    top: 30px; /* 약간 아래로 이동 */
+}
+
+.wb-toast.hide {
+    opacity: 0;
+    top: 20px; /* 원래 위치로 이동 */
+}
