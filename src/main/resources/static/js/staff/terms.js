@@ -12,7 +12,7 @@ function connect() {
     source.addEventListener('message', function(e) {
 
         if (e.data === 'go agree') {
-            window.location.href = '/guest/agree';
+            window.location.href = '/staff/agree';
         }
 
         const res = JSON.parse(e.data);
