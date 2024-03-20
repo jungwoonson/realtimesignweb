@@ -60,6 +60,7 @@ function findGuests() {
 
             const button = document.createElement('button');
             button.innerHTML = '선택';
+            button.style = 'width: 80px; height: 50px;';
             button.type = 'button';
             button.onclick = () => {
                 choiceGuest(guests[i]);

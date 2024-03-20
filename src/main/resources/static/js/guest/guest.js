@@ -34,7 +34,12 @@ function connect() {
     source.addEventListener('open', function(e) {
         const deviceValue = checkedElement.value;
         document.getElementById('devices').remove();
-        document.querySelector('body').innerText = deviceValue + ' 대기중...';
+
+        let div = document.createElement('div');
+        div.style = 'font-size: 18pt';
+        div.innerText = deviceValue + ' 대기중...';
+
+        document.querySelector('body').insertAdjacentElement('beforeend', div);
     }, false);
 
     source.addEventListener('error', function(e) {

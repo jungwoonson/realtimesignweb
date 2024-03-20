@@ -17,18 +17,20 @@
 </head>
 <body>
     <div>
-        <h3>접속 기기 목록</h3>
-        <button type="button" onclick="findGuests()">재검색</button>
+        <h1 style="font-size: 60px">접속 기기 목록</h1>
         <br>
-        <table>
+        <button type="button" onclick="findGuests()" style="width: 100px; height: 60px">재검색</button>
+        <br>
+        <br>
+        <table style="width: 400px; font-size: 18pt;">
             <thead>
-            <tr>
+            <tr style="text-align: center;">
                 <td>순번</td>
                 <td>기기이름</td>
                 <td>기능</td>
             </tr>
             </thead>
-            <tbody id="guest-list">
+            <tbody id="guest-list" style="text-align: center;">
             <tr>
                 <td colspan="3">
                     기기 접속 대기중....
@@ -37,6 +39,7 @@
             </tbody>
         </table>
     </div>
+    <br>
     <a href="/staff/signs">저장된 서명 목록</a>
 </body>
 </html>
