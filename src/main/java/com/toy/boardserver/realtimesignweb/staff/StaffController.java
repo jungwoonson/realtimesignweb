@@ -1,5 +1,6 @@
 package com.toy.boardserver.realtimesignweb.staff;
 
+import com.toy.boardserver.realtimesignweb.guest.Sign;
 import com.toy.boardserver.realtimesignweb.guest.GuestService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -51,6 +53,11 @@ public class StaffController {
         return String.format("/%s/%s", TEMPLATE_ROOT, "agree.html");
     }
 
+    @GetMapping("/signs")
+    public String signs() {
+        return String.format("/%s/%s", TEMPLATE_ROOT, "signs.html");
+    }
+
     @GetMapping("/connect")
     public SseEmitter connect(HttpServletRequest request) throws IOException {
         HttpSession session = request.getSession();
@@ -69,6 +76,11 @@ public class StaffController {
         Set<String> uuids = guestService.guestUUIDs();;
         return ResponseEntity.ok()
                 .body(uuids);
+    }
+
+    @GetMapping("/signinfos")
+    public ResponseEntity<List<Sign>> signinfos() {
+        return ResponseEntity.ok(guestService.getSigns());
     }
 
     @GetMapping("/choice")

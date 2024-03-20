@@ -96,4 +96,13 @@ public class GuestController {
         return ResponseEntity.noContent()
                 .build();
     }
+
+    @PostMapping("/terms/save")
+    public ResponseEntity<String> termsSave(HttpServletRequest request, @RequestBody Map<String, String> body) throws IOException {
+        guestService.addSign(body);
+        HttpSession session = request.getSession();
+        staffService.sendEvent((String) session.getAttribute(SESSION_STAFF_KEY), body);
+        return ResponseEntity.noContent()
+                .build();
+    }
 }

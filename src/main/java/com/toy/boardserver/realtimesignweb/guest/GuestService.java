@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,6 +14,8 @@ import java.util.Set;
 public class GuestService {
 
     private static final SseEmitters guestEmitters = new SseEmitters();
+
+    private static final List<Sign> SIGNS = new ArrayList<>();
 
     public SseEmitter connect(String uuid) throws IOException {
         return guestEmitters.add(uuid);
@@ -38,5 +42,17 @@ public class GuestService {
     public void sendEvent(String staffKey, Map<String, String> data) throws IOException {
         SseEmitter emitter = guestEmitters.get(staffKey);
         emitter.send(data);
+    }
+
+    public void addSign(Map<String, String> data) {
+        SIGNS.add(
+                new Sign(String.valueOf(data.get("name")), String.valueOf(data.get("phoneNumber")), String.valueOf(data.get("check1")),
+                        String.valueOf(data.get("check2")), String.valueOf(data.get("check3")), data.get("sign"))
+        );
+        System.out.println(SIGNS);
+    }
+
+    public List<Sign> getSigns() {
+        return new ArrayList<>(SIGNS);
     }
 }

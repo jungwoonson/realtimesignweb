@@ -30,13 +30,14 @@ function connect() {
             }
         }
 
-        console.log(res);
-        console.log(res.id === 'sign');
-        console.log(res.id);
-
         if (res.id === 'sign') {
             const img = document.getElementById('modalSignImage');
             img.src = res.value;
+            return;
+        }
+
+        if (res.id === 'saveAgree') {
+            window.location.href = '/staff/signs';
             return;
         }
 
