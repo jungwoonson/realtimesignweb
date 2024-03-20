@@ -28,3 +28,62 @@ function showToast(message) {
         }, 500); // 투명해지는 동안 기다림
     }, 3000); // 3초 동안 표시
 }
+
+const calByte = {
+    getByteLength : function( string ) {
+
+        if( string == null || string.length == 0 ) {
+            return 0;
+        }
+
+        let size = 0;
+
+        for( let num = 0; num < string.length; num++ ) {
+            size += this.charByteSize( string.charAt( num ) );
+        }
+
+        return size;
+    }
+    , cutByteLength : function( string, length ) {
+
+        if( string == null || string.length == 0 ) {
+            return 0;
+        }
+
+        let size = 0;
+        let rIndex = string.length;
+
+
+        for( let num = 0; num < string.length; num++ ) {
+
+            size += this.charByteSize( string.charAt( num ) );
+
+            if( size == length ) {
+                rIndex = num + 1;
+                break;
+            } else if( size > length ) {
+                rIndex = num;
+                break;
+            }
+        }
+        return string.substring( 0, rIndex );
+    }
+    , charByteSize : function( ch ) {
+
+        if( ch == null || ch.length == 0 ) {
+            return 0;
+        }
+
+        let charCode = ch.charCodeAt( 0 );
+
+        if( charCode <= 0x00007F ) {
+            return 1;
+        } else if( charCode <= 0x0007FF ) {
+            return 2;
+        } else if( charCode <= 0x00FFFF ) {
+            return 3;
+        } else {
+            return 4;
+        }
+    }
+};

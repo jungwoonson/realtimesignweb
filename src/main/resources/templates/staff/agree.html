@@ -114,7 +114,7 @@
                 </tbody>
             </table>
             <div class="btns">
-                <a href="/" class="btn">저장</a>
+                <a href="javascript:saveAgree();" class="btn">저장</a>
             </div>
         </form>
     </section>
@@ -238,6 +238,44 @@
                     console.log(error);
                 });
         }
+    }
+
+    function saveAgree() {
+        const check1 = document.getElementById('agree8-1');
+        const check2 = document.getElementById('agree8-2');
+        const signImage = document.getElementById('signImage');
+
+        if (!check1.checked || !check2.checked) {
+            showToast('필수 항목을 동의해 주세요.');
+            if (!check1.checked) {
+                check1.focus();
+                return;
+            }
+            if (!check2.checked) {
+                check2.focus();
+                return;
+            }
+            return;
+        }
+
+        if (calByte.getByteLength(signImage.src) < 1200) {
+            showToast('서명란을 클릭하여 서명해 주세요.');
+            return;
+        }
+
+        fetch('/staff/terms/event', {
+            method: 'POST',
+            headers: {
+                "Data-Type": "json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: 'saveAgree',
+            }),
+        })
+            .catch(error => {
+                console.log(error);
+            });
     }
 </script>
 

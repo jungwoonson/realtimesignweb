@@ -63,6 +63,11 @@ function connect() {
                 return;
             }
         }
+
+        if (res.id === 'saveAgree') {
+            saveAgree();
+            return;
+        }
     }, false);
 
     source.addEventListener('open', function(e) {
