@@ -12,7 +12,34 @@ function connect() {
     source.addEventListener('message', function(e) {
 
         const res = JSON.parse(e.data);
+
+        if (res.id === 'signModal') {
+            if (res.value === 'open') {
+                signModal.show();
+                return;
+            }
+
+            if (res.value === 'close') {
+                signModal.hide();
+                return;
+            }
+
+            if (res.value === 'save') {
+                saveSign(false);
+                return;
+            }
+        }
+
         console.log(res);
+        console.log(res.id === 'sign');
+        console.log(res.id);
+
+        if (res.id === 'sign') {
+            const img = document.getElementById('modalSignImage');
+            img.src = res.value;
+            return;
+        }
+
         if (!!res.id) {
             let element = document.getElementById(res.id);
             element.checked = res.checked === 'true';

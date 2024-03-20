@@ -5,12 +5,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -85,6 +84,14 @@ public class StaffController {
     public ResponseEntity<String> goagree(HttpServletRequest request) throws IOException {
         HttpSession session = request.getSession();
         guestService.sendEvent((String) session.getAttribute(SESSION_GUEST_KEY), "go agree");
+        return ResponseEntity.noContent()
+                .build();
+    }
+
+    @PostMapping("/terms/event")
+    public ResponseEntity<String> event(HttpServletRequest request, @RequestBody Map<String, String> body) throws IOException {
+        HttpSession session = request.getSession();
+        guestService.sendEvent((String) session.getAttribute(SESSION_GUEST_KEY), body);
         return ResponseEntity.noContent()
                 .build();
     }

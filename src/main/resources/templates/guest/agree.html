@@ -132,7 +132,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="save" class="btn btn-primary" onclick="saveSign();">
+                <button id="save" class="btn btn-primary" onclick="saveSign(true);">
                     서명하기
                 </button>
             </div>
@@ -255,17 +255,19 @@
         context.setTransform(1, 0, 0, 1, 0, 0);
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.restore();
+        sendSignData();
     }
 
     function sendSignData() {
-        fetch('/guest/terms/sign', {
+        fetch('/guest/terms/event', {
             method: 'POST',
             headers: {
                 "Data-Type": "json",
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                sign: canvas.toDataURL(),
+                id: 'sign',
+                value: canvas.toDataURL(),
             }),
         })
             .catch(error => {
@@ -281,17 +283,75 @@
     });
 
     function openSignModal() {
-        signModal.show();
+        fetch('/guest/terms/event', {
+            method: 'POST',
+            headers: {
+                "Data-Type": "json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: 'signModal',
+                value: 'open',
+            }),
+        })
+            .then(response => {
+                if (response.status === 204) {
+                    signModal.show();
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     function closeSignModal() {
+        fetch('/guest/terms/event', {
+            method: 'POST',
+            headers: {
+                "Data-Type": "json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: 'signModal',
+                value: 'close',
+            }),
+        })
+            .then(response => {
+                if (response.status === 204) {
+                    signModal.hide();
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
         signModal.hide();
     }
 
-    function saveSign() {
+    function saveSign(isSendServer) {
         const signImage = document.getElementById('signImage');
         signImage.src = canvas.toDataURL();
         closeSignModal();
+        if (isSendServer) {
+            fetch('/guest/terms/event', {
+                method: 'POST',
+                headers: {
+                    "Data-Type": "json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id: 'signModal',
+                    value: 'save',
+                }),
+            })
+                .then(response => {
+                    if (response.status === 204) {
+                        signModal.hide();
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
     }
 </script>
 

@@ -60,6 +60,12 @@ public class GuestController {
         return emitter;
     }
 
+    @GetMapping( "/reconnect")
+    public SseEmitter connect(HttpServletRequest request) throws IOException {
+        HttpSession session = request.getSession();
+        return guestService.findEmitter((String) session.getAttribute(SESSION_KEY_NAME));
+    }
+
     @PostMapping("/staffKey")
     public ResponseEntity<String> staffKey(HttpServletRequest request, @RequestBody Map<String, String> body) {
         request.getSession().setAttribute(SESSION_STAFF_KEY, body.get("staffKey"));

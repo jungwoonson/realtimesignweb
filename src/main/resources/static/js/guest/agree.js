@@ -30,8 +30,39 @@ function connect() {
         return;
     }
 
-    const source = new EventSource('/staff/connect');
+    const source = new EventSource('/guest/reconnect');
     source.addEventListener('message', function(e) {
+
+        if (!!!e.data) {
+            return;
+        }
+
+        const res = JSON.parse(e.data);
+        if (!!!res.id) {
+            return;
+        }
+
+        if (res.id === 'signModal') {
+            if (res.value === 'open') {
+                signModal.show();
+                return;
+            }
+
+            if (res.value === 'close') {
+                signModal.hide();
+                return;
+            }
+
+            if (res.value === 'save') {
+                saveSign(false);
+                return;
+            }
+
+            if (res.value === 'clear') {
+                onClear();
+                return;
+            }
+        }
     }, false);
 
     source.addEventListener('open', function(e) {

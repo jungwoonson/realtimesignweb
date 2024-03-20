@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Set;
 
 @Service
@@ -32,5 +33,10 @@ public class GuestService {
     public void sendEvent(String guestKey, String event) throws IOException {
         SseEmitter emitter = guestEmitters.get(guestKey);
         emitter.send(event);
+    }
+
+    public void sendEvent(String staffKey, Map<String, String> data) throws IOException {
+        SseEmitter emitter = guestEmitters.get(staffKey);
+        emitter.send(data);
     }
 }
