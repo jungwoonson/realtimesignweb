@@ -10,6 +10,14 @@ function connect() {
 
     const source = new EventSource('/staff/connect');
     source.addEventListener('message', function(e) {
+
+        const res = JSON.parse(e.data);
+        console.log(res);
+        if (!!res.id) {
+            let element = document.getElementById(res.id);
+            element.checked = res.checked === 'true';
+            element.focus();
+        }
     }, false);
 
     source.addEventListener('open', function(e) {

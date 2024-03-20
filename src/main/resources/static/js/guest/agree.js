@@ -1,16 +1,14 @@
 window.addEventListener("DOMContentLoaded", (event) => {
-    document.querySelectorAll('input[type=radio]').forEach(e => {
-        e.onclick = (e) => {
-            console.log(e.target.name);
-            radioEvent(e.target.name, e.target.value);
+    document.querySelectorAll('input[type=checkbox]').forEach(e => {
+        e.onchange = (e) => {
+            checkboxEvent(e.target.name, e.target.checked);
         }
     });
 
     connect();
 });
 
-function radioEvent(id, value) {
-    console.log(id, value);
+function checkboxEvent(id, checked) {
     fetch('/guest/terms/event', {
         method: 'POST',
         headers: {
@@ -18,7 +16,7 @@ function radioEvent(id, value) {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            id, value
+            id, checked
         }),
     })
         .catch(error => {
