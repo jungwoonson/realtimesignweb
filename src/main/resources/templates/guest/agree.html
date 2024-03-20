@@ -126,7 +126,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">서명하기</h5>
                 <button type="button" class="btn-reset" onclick="onClear();">다시쓰기</button>
-                <button type="button" class="btn-close" onclick="closeSignModal();">닫기</button>
+                <button type="button" class="btn-close" onclick="signModal.hide();">닫기</button>
             </div>
             <div class="modal-body">
                 <div class="sign_area">
@@ -282,6 +282,9 @@
         signModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
             keyboard: false,
         });
+        document.getElementById('exampleModal').addEventListener('hide.bs.modal', (e) => {
+            closeSignModal();
+        });
     });
 
     function openSignModal() {
@@ -326,7 +329,6 @@
             .catch(error => {
                 console.log(error);
             });
-        signModal.hide();
     }
 
     function saveSign(isSendServer) {
