@@ -90,10 +90,9 @@
             <p class="align-center mb4">사용신청일 2024년 03월 12일</p>
             <article class="sign_box mb4">
                 <strong>성명: 김 인 재</strong>
-                <a href="javascript:void(0);" class="sign_box_img" data-bs-toggle="modal"
-                   data-bs-target="#exampleModal">
+                <a href="javascript:openSignModal();" class="sign_box_img">
                     (인)
-                    <img src="/images/sign.png" alt="서명 또는 인">
+                    <img id="signImage" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAR8AAABvCAYAAADVAsQ4AAAAAXNSR0IArs4c6QAAAxZJREFUeF7t1MEJAAAIAzG7/9KOcZ+4QCHI7RwBAgQCgQWbJgkQIHDi4wkIEEgExCdhN0qAgPj4AQIEEgHxSdiNEiAgPn6AAIFEQHwSdqMECIiPHyBAIBEQn4TdKAEC4uMHCBBIBMQnYTdKgID4+AECBBIB8UnYjRIgID5+gACBREB8EnajBAiIjx8gQCAREJ+E3SgBAuLjBwgQSATEJ2E3SoCA+PgBAgQSAfFJ2I0SICA+foAAgURAfBJ2owQIiI8fIEAgERCfhN0oAQLi4wcIEEgExCdhN0qAgPj4AQIEEgHxSdiNEiAgPn6AAIFEQHwSdqMECIiPHyBAIBEQn4TdKAEC4uMHCBBIBMQnYTdKgID4+AECBBIB8UnYjRIgID5+gACBREB8EnajBAiIjx8gQCAREJ+E3SgBAuLjBwgQSATEJ2E3SoCA+PgBAgQSAfFJ2I0SICA+foAAgURAfBJ2owQIiI8fIEAgERCfhN0oAQLi4wcIEEgExCdhN0qAgPj4AQIEEgHxSdiNEiAgPn6AAIFEQHwSdqMECIiPHyBAIBEQn4TdKAEC4uMHCBBIBMQnYTdKgID4+AECBBIB8UnYjRIgID5+gACBREB8EnajBAiIjx8gQCAREJ+E3SgBAuLjBwgQSATEJ2E3SoCA+PgBAgQSAfFJ2I0SICA+foAAgURAfBJ2owQIiI8fIEAgERCfhN0oAQLi4wcIEEgExCdhN0qAgPj4AQIEEgHxSdiNEiAgPn6AAIFEQHwSdqMECIiPHyBAIBEQn4TdKAEC4uMHCBBIBMQnYTdKgID4+AECBBIB8UnYjRIgID5+gACBREB8EnajBAiIjx8gQCAREJ+E3SgBAuLjBwgQSATEJ2E3SoCA+PgBAgQSAfFJ2I0SICA+foAAgURAfBJ2owQIiI8fIEAgERCfhN0oAQLi4wcIEEgExCdhN0qAgPj4AQIEEgHxSdiNEiAgPn6AAIFEQHwSdqMECIiPHyBAIBEQn4TdKAEC4uMHCBBIBMQnYTdKgID4+AECBBIB8UnYjRIgID5+gACBROAB880AcKYEo6kAAAAASUVORK5CYII=" alt="서명 또는 인">
                 </a>
             </article>
             <h3>대구공공시설관리공단 이사장 귀하</h3>
@@ -125,7 +124,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">서명하기</h5>
                 <button type="button" class="btn-reset" onclick="onClear();">다시쓰기</button>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">닫기</button>
+                <button type="button" class="btn-close" onclick="closeSignModal();">닫기</button>
             </div>
             <div class="modal-body">
                 <div class="sign_area">
@@ -133,7 +132,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="save" class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+                <button id="save" class="btn btn-primary" onclick="saveSign();">
                     서명하기
                 </button>
             </div>
@@ -194,6 +193,7 @@
             if (tool.started) {
                 tool.mousemove(ev);
                 tool.started = false;
+                sendSignData();
             }
         };
 
@@ -215,6 +215,7 @@
             if (tool.started) {
                 tool.touchmove(ev);
                 tool.started = false;
+                sendSignData();
             }
         };
     }
@@ -256,19 +257,42 @@
         context.restore();
     }
 
-    $("#save").on("click", function () {
-        // a 태그를 만들어서 다운로드를 만듭니다.
-        var link = document.createElement('a');
-        link.href = canvas.toDataURL("image/png");
-        // 다운로드시 파일명 지정
-        link.download = "sign.png";
-        // body에 추가
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        // 다운로드용 a 태그는 다운로드가 끝나면 삭제합니다.
-        form.remove();
+    function sendSignData() {
+        fetch('/guest/terms/sign', {
+            method: 'POST',
+            headers: {
+                "Data-Type": "json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                sign: canvas.toDataURL(),
+            }),
+        })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    let signModal;
+    window.addEventListener("DOMContentLoaded", (event) => {
+        signModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+            keyboard: false,
+        });
     });
+
+    function openSignModal() {
+        signModal.show();
+    }
+
+    function closeSignModal() {
+        signModal.hide();
+    }
+
+    function saveSign() {
+        const signImage = document.getElementById('signImage');
+        signImage.src = canvas.toDataURL();
+        closeSignModal();
+    }
 </script>
 
 <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
