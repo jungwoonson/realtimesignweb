@@ -47,6 +47,11 @@ public class StaffController {
         return String.format("/%s/%s", TEMPLATE_ROOT, "terms.html");
     }
 
+    @GetMapping("/agree")
+    public String agree() {
+        return String.format("/%s/%s", TEMPLATE_ROOT, "agree.html");
+    }
+
     @GetMapping("/connect")
     public SseEmitter connect(HttpServletRequest request) throws IOException {
         HttpSession session = request.getSession();
@@ -72,6 +77,14 @@ public class StaffController {
         HttpSession session = request.getSession();
         session.setAttribute(SESSION_GUEST_KEY, guest);
         guestService.goIndex(guest, (String) session.getAttribute(SESSION_KEY_NAME));
+        return ResponseEntity.noContent()
+                .build();
+    }
+
+    @GetMapping("/goagree")
+    public ResponseEntity<String> goagree(HttpServletRequest request) throws IOException {
+        HttpSession session = request.getSession();
+        guestService.sendEvent((String) session.getAttribute(SESSION_GUEST_KEY), "go agree");
         return ResponseEntity.noContent()
                 .build();
     }

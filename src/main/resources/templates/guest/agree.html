@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전자서명 대기명단</title>
+    <link rel="stylesheet" href="/css/css@3.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/modals.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/sub.css">
+    <script defer src="/js/color-modes.js"></script>
+    <script defer src="/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <style>
+        .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
+        }
+    </style>
+
+    <script type="application/javascript" src="/js/staff/agree" defer></script>
+</head>
+<body>
+<main class="wrap">
+    <section class="header">
+        <a class="home" href="/">
+            <img src="images/btn_home.png" alt="home">
+        </a>
+        <h1>화장 신고서 및 장사시설 사용 신청서</h1>
+    </section>
+    <section class="path_bar">
+        <div class="path_box">
+            <ul>
+                <li>제 2024-25964호</li>
+                <li>즉시처리</li>
+            </ul>
+            <p>
+                <img src="/images/check_off.png" alt="off"> 를 클릭하여&nbsp;&nbsp;<img src="/images/check_on.png" alt="on">
+                체크하시기 바랍니다.
+            </p>
+        </div>
+    </section>
+    <section class="page">
+        <form action="">
+            <h2>정보수집통의 <span>(필수동의)</span></h2>
+            <ul class="information_box">
+                <li>
+                    <div class="information_box_contents">개인정보보호법 제 15조 1항(개인정보의 수집 이용)에 의거하여 본인의
+                        개인정보를 화장업무 처리시 제공할 것을 동의합니다.
+                    </div>
+                    <div class="radio_items grid-auto">
+                        <div class="radio_item">
+                            <input type="checkbox" id="agree8-1" class="radioBtn"/>
+                            <label for="agree8-1">동의</label>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="information_box_contents">「장사 등에 관한 법률」 제33조의 3제 3항 및 같은 법 시행규칙 제22조의
+                        3에 따른 사망자정보 등록에 대한 사항에 동의합니다.
+                        <p class="mt2">
+                            <span class="text-red">※</span> 사망자정보 등의 제공을 거부할 경우 장사시설 이용이 제한될 수 있습니다.
+                        </p>
+                    </div>
+                    <div class="radio_items grid-auto">
+                        <div class="radio_item">
+                            <input type="checkbox" id="agree8-2" class="radioBtn"/>
+                            <label for="agree8-2">동의</label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <h2>제3자 위탁 제공동의 <span class="text-red">(선택동의)</span></h2>
+            <ul class="information_box">
+                <li>
+                    <div class="information_box_contents">고객만족도 조사를 위하여 수집된 성명과 전화번호가 제3자의 위탁 제공할
+                        것을 동의 합니다.
+                    </div>
+                    <div class="radio_items grid-auto">
+                        <div class="radio_item">
+                            <input type="checkbox" id="agree8-3" class="radioBtn"/>
+                            <label for="agree8-3">동의</label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <p class="mb4">「장사 등에 관한 법률」 및 같은 법 시행규칙 따라 화장신고 및 「대구광역시 장사시설의 설치 및 운영
+                조례」 및 같은 조례 시행규칙 제 2조의 규정에 의거 대구 명복공원 장사시설 사용을 신청합니다.</p>
+            <p class="align-center mb4">사용신청일 2024년 03월 12일</p>
+            <article class="sign_box mb4">
+                <strong>성명: 김 인 재</strong>
+                <a href="javascript:void(0);" class="sign_box_img" data-bs-toggle="modal"
+                   data-bs-target="#exampleModal">
+                    (인)
+                    <img src="/images/sign.png" alt="서명 또는 인">
+                </a>
+            </article>
+            <h3>대구공공시설관리공단 이사장 귀하</h3>
+            <table>
+                <caption>화장일자 안내</caption>
+                <tbody>
+                <tr>
+                    <th scope="row">화장일자</th>
+                    <td>2024-03-12 3회차</td>
+                    <th scope="row">관리번호</th>
+                    <td>2024-254254-24</td>
+                </tr>
+                <tr>
+                    <th scope="row">접수자</th>
+                    <td rowspan="3">관리자12</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="btns">
+                <a href="/" class="btn">저장</a>
+            </div>
+        </form>
+    </section>
+</main>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">서명하기</h5>
+                <button type="button" class="btn-reset" onclick="onClear();">다시쓰기</button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">닫기</button>
+            </div>
+            <div class="modal-body">
+                <div class="sign_area">
+                    <canvas id="canvas" width="287" height="111" style="position: relative;"></canvas>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="save" class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+                    서명하기
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    if (window.addEventListener) {
+        window.addEventListener('load', InitEvent, false);
+    }
+    var canvas, context, tool;
+
+    function InitEvent() {
+        canvas = document.getElementById('canvas');
+        if (!canvas) {
+            alert("캔버스 객체를 찾을 수 없음");
+            return;
+        }
+        if (!canvas.getContext) {
+            alert("Drawing Contextf를 찾을 수 없음");
+            return;
+        }
+        context = canvas.getContext('2d');
+        if (!context) {
+            alert("getContext() 함수를 호출 할 수 없음");
+            return;
+        }
+        // Pencil tool 객체를 생성 한다.
+        tool = new tool_pencil();
+        canvas.addEventListener('mousedown', ev_canvas, false);
+        canvas.addEventListener('mousemove', ev_canvas, false);
+        canvas.addEventListener('mouseup', ev_canvas, false);
+        canvas.addEventListener('touchstart', ev_canvas, false);
+        canvas.addEventListener('touchmove', ev_canvas, false);
+        canvas.addEventListener('touchend', ev_canvas, false);
+    }
+
+    function tool_pencil() {
+        var tool = this;
+        this.started = false;
+
+        // 마우스를 누르는 순간 그리기 작업을 시작 한다.
+        this.mousedown = function (ev) {
+            context.beginPath();
+            context.moveTo(ev._x, ev._y);
+            tool.started = true;
+        };
+        // 마우스가 이동하는 동안 계속 호출하여 Canvas에 Line을 그려 나간다
+        this.mousemove = function (ev) {
+            if (tool.started) {
+                context.lineTo(ev._x, ev._y);
+                context.stroke();
+            }
+        };
+        // 마우스 떼면 그리기 작업을 중단한다
+        this.mouseup = function (ev) {
+            if (tool.started) {
+                tool.mousemove(ev);
+                tool.started = false;
+            }
+        };
+
+        // 마우스를 누르는 순간 그리기 작업을 시작 한다.
+        this.touchstart = function (ev) {
+            context.beginPath();
+            context.moveTo(ev._x, ev._y);
+            tool.started = true;
+        };
+        // 마우스가 이동하는 동안 계속 호출하여 Canvas에 Line을 그려 나간다
+        this.touchmove = function (ev) {
+            if (tool.started) {
+                context.lineTo(ev._x, ev._y);
+                context.stroke();
+            }
+        };
+        // 마우스 떼면 그리기 작업을 중단한다
+        this.touchend = function (ev) {
+            if (tool.started) {
+                tool.touchmove(ev);
+                tool.started = false;
+            }
+        };
+    }
+
+    // Canvas요소 내의 좌표를 결정 한다.
+    function ev_canvas(ev) {
+        if (ev.layerX || ev.layerX == 0) { // Firefox 브라우저
+            ev._x = ev.layerX;
+            ev._y = ev.layerY;
+        } else if (ev.offsetX || ev.offsetX == 0) { // Opera 브라우저
+            ev._x = ev.offsetX;
+            ev._y = ev.offsetY;
+        } else if (ev.targetTouches[0] || ev.targetTouches[0].pageX == 0) {	//핸드폰
+            var left = 0;
+            var top = 0;
+            var elem = document.getElementById('canvas');
+
+            while (elem) {
+                left = left + parseInt(elem.offsetLeft);
+                top = top + parseInt(elem.offsetTop);
+                elem = elem.offsetParent;
+            }
+
+            ev._x = ev.targetTouches[0].pageX - left;
+            ev._y = ev.targetTouches[0].pageY - top;
+        }
+        // tool의 이벤트 핸들러를 호출한다.
+        var func = tool[ev.type];
+        if (func) {
+            func(ev);
+        }
+    }
+
+    function onClear() {
+        canvas = document.getElementById('canvas');
+        context.save();
+        context.setTransform(1, 0, 0, 1, 0, 0);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.restore();
+    }
+
+    $("#save").on("click", function () {
+        // a 태그를 만들어서 다운로드를 만듭니다.
+        var link = document.createElement('a');
+        link.href = canvas.toDataURL("image/png");
+        // 다운로드시 파일명 지정
+        link.download = "sign.png";
+        // body에 추가
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        // 다운로드용 a 태그는 다운로드가 끝나면 삭제합니다.
+        form.remove();
+    });
+</script>
+
+<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                김인재님<br/>사용 신청 완료되었습니다.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-toggle="modal">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

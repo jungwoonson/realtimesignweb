@@ -5,6 +5,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
             radioEvent(e.target.name, e.target.value);
         }
     });
+
+    connect();
 });
 
 function radioEvent(id, value) {
@@ -32,10 +34,6 @@ function connect() {
 
     const source = new EventSource('/staff/connect');
     source.addEventListener('message', function(e) {
-        console.log(e);
-        if (e.data === "go agree") {
-            window.location.href = '/guest/agree';
-        }
     }, false);
 
     source.addEventListener('open', function(e) {
@@ -48,18 +46,4 @@ function connect() {
             console.log('SSE 연결이 종료되었습니다.');
         }
     }, false);
-}
-
-function goAgree() {
-    fetch('/guest/goagree', {
-        method: 'GET',
-    })
-        .then(response => {
-            if (response.status === 204) {
-                window.location.href = '/guest/agree';
-            }
-        })
-        .catch(error => {
-            console.log(error);
-        });
 }

@@ -28,4 +28,9 @@ public class GuestService {
         SseEmitter emitter = guestEmitters.get(guestKey);
         emitter.send("go index|" + staffKey);
     }
+
+    public void sendEvent(String guestKey, String event) throws IOException {
+        SseEmitter emitter = guestEmitters.get(guestKey);
+        emitter.send(event);
+    }
 }

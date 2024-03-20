@@ -40,10 +40,15 @@ public class GuestController {
     }
 
     @GetMapping("/terms")
-    public String event(HttpServletRequest request) throws IOException {
+    public String terms(HttpServletRequest request) throws IOException {
         HttpSession session = request.getSession();
         staffService.sendEvent((String) session.getAttribute(SESSION_STAFF_KEY), "go terms");
         return String.format("/%s/%s", TEMPLATE_ROOT, "terms.html");
+    }
+
+    @GetMapping("/agree")
+    public String agree() {
+        return String.format("/%s/%s", TEMPLATE_ROOT, "agree.html");
     }
 
     @GetMapping( "/connect/{device}")
@@ -66,6 +71,14 @@ public class GuestController {
     public ResponseEntity<String> goterms(HttpServletRequest request) throws IOException {
         HttpSession session = request.getSession();
         staffService.sendEvent((String) session.getAttribute(SESSION_STAFF_KEY), "go terms");
+        return ResponseEntity.noContent()
+                .build();
+    }
+
+    @GetMapping("/goagree")
+    public ResponseEntity<String> goagree(HttpServletRequest request) throws IOException {
+        HttpSession session = request.getSession();
+        staffService.sendEvent((String) session.getAttribute(SESSION_STAFF_KEY), "go agree");
         return ResponseEntity.noContent()
                 .build();
     }

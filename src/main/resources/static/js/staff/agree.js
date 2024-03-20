@@ -10,17 +10,6 @@ function connect() {
 
     const source = new EventSource('/staff/connect');
     source.addEventListener('message', function(e) {
-
-        if (e.data === 'go agree') {
-            window.location.href = '/guest/agree';
-        }
-
-        const res = JSON.parse(e.data);
-        if (!!res.id) {
-            let element = document.querySelector(`input[type=radio][name=${res.id}][value=${res.value}]`);
-            element.checked = true;
-            element.focus();
-        }
     }, false);
 
     source.addEventListener('open', function(e) {
@@ -33,18 +22,4 @@ function connect() {
             console.log('SSE 연결이 종료되었습니다.');
         }
     }, false);
-}
-
-function goAgree() {
-    fetch('/staff/goagree', {
-        method: 'GET',
-    })
-        .then(response => {
-            if (response.status === 204) {
-                window.location.href = '/staff/agree';
-            }
-        })
-        .catch(error => {
-            console.log(error);
-        });
 }
