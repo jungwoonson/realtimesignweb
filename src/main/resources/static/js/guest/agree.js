@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         }
     });
 
-    connect();
+    sseConnect('/guest/reconnect', sseMessageEvent);
 });
 
 function checkboxEvent(id, checked) {
@@ -24,67 +24,48 @@ function checkboxEvent(id, checked) {
         });
 }
 
-function connect() {
-    if (!!!window.EventSource) {
-        alert('SSE를 지원하지 않는 브라우저 입니다.');
+function sseMessageEvent(e) {
+    if (!!!e.data) {
         return;
     }
 
-    const source = new EventSource('/guest/reconnect');
-    source.addEventListener('message', function(e) {
+    const res = JSON.parse(e.data);
+    if (!!!res.id) {
+        return;
+    }
 
-        if (!!!e.data) {
+    if (res.id === 'signModal') {
+        if (res.value === 'open') {
+            signModal.show();
             return;
         }
 
-        const res = JSON.parse(e.data);
-        if (!!!res.id) {
+        if (res.value === 'close') {
+            signModal.hide();
             return;
         }
 
-        if (res.id === 'signModal') {
-            if (res.value === 'open') {
-                signModal.show();
-                return;
-            }
-
-            if (res.value === 'close') {
-                signModal.hide();
-                return;
-            }
-
-            if (res.value === 'save') {
-                saveSign(false);
-                return;
-            }
-
-            if (res.value === 'clear') {
-                onClear();
-                return;
-            }
-        }
-
-        if (res.id === 'saveAgree') {
-            saveAgree();
+        if (res.value === 'save') {
+            saveSign(false);
             return;
         }
-    }, false);
 
-    source.addEventListener('open', function(e) {
-        console.log('open event');
-    }, false);
-
-    source.addEventListener('error', function(e) {
-        console.log('error event');
-        if (e.readyState === EventSource.CLOSED) {
-            console.log('SSE 연결이 종료되었습니다.');
+        if (res.value === 'clear') {
+            onClear();
+            return;
         }
-    }, false);
+    }
+
+    if (res.id === 'saveAgree') {
+        saveAgree();
+        return;
+    }
 }
 
 if (window.addEventListener) {
     window.addEventListener('load', InitEvent, false);
 }
+
 var canvas, context, tool;
 
 function InitEvent() {
