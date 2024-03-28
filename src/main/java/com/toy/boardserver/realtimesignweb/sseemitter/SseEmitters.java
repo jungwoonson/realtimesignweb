@@ -1,4 +1,4 @@
-package com.toy.boardserver.realtimesignweb.sign;
+package com.toy.boardserver.realtimesignweb.sseemitter;
 
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 

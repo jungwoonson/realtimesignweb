@@ -1,6 +1,6 @@
 package com.toy.boardserver.realtimesignweb.guest;
 
-import com.toy.boardserver.realtimesignweb.sign.SseEmitters;
+import com.toy.boardserver.realtimesignweb.sseemitter.SseEmitters;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
