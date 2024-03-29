@@ -3,6 +3,9 @@ package com.toy.boardserver.realtimesignweb.sseemitter;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -45,5 +48,12 @@ public class SseEmitters {
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    public void sendEventToAll(Map<String, String> event) throws IOException {
+        List<SseEmitter> values = emitters.values().stream().toList();
+        for (SseEmitter value : values) {
+            value.send(event);
+        }
     }
 }
