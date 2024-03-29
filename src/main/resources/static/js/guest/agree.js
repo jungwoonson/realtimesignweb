@@ -1,3 +1,5 @@
+let canvas, context, tool;
+
 window.addEventListener("DOMContentLoaded", (event) => {
     document.querySelectorAll('input[type=checkbox]').forEach(e => {
         e.onchange = (e) => {
@@ -6,6 +8,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     });
 
     sseConnect('/guest/reconnect', sseMessageEvent);
+    window.addEventListener('load', InitEvent, false);
 });
 
 function checkboxEvent(id, checked) {
@@ -61,12 +64,6 @@ function sseMessageEvent(e) {
         return;
     }
 }
-
-if (window.addEventListener) {
-    window.addEventListener('load', InitEvent, false);
-}
-
-var canvas, context, tool;
 
 function InitEvent() {
     canvas = document.getElementById('canvas');
