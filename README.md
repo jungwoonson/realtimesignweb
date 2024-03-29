@@ -1,30 +1,5 @@
 # 기술 설명
 
-## Canvas API
-
-### Canvas 란?
-- HTML과 JavaScript를 사용하는 환경에서 그래픽을 그리는 수단을 제공하는 API 입니다.
-- 애니메이션, 게임 그래픽, 데이터 시각화, 사진 조작, 실시간 비디오 처리에 사용됩니다.
-- 주로 2D 그래픽에 중점을 둡니다.
-- WebGL API를 사용하여 만들어졌습니다.
-
-### WebGL(Web Graphics Library) 이란?
-- 플러그인을 사용하지 않고도 고성능 대화형 3D 및 2D 그래픽을 렌더링 하기 위한 JavaScript API 입니다.
-- 기존의 OpenGL ES 2.0 을 기반으로 제작되었습니다. (OpenGL : 2D 및 3D 컴퓨터 그래픽을 렌더링하기 위한 OpenGL 컴퓨터 그래픽 렌더링 API)
-- 위 사유 때문에 사용자 장치에서 제공되는 하드웨어 그래픽 가속을 활용할 수 있습니다. (하드웨어 그래픽 가속 : CPU의 그래픽 기능을 그래픽 카드와 분배하여 작업하는 기능)
-
-### 사용 방법
-MDN 참고 : https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
-```html
-<canvas id="canvas"></canvas>
-```
-```javascript
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-ctx.fillStyle = "green";
-ctx.fillRect(10, 10, 150, 100);
-```
-
 ## Server-Sent Event (SSE)
 
 ### SSE 란?
@@ -166,4 +141,29 @@ public class SseEmitters {
         emitter.complete();
     }
 }
+```
+
+## Canvas API
+
+### Canvas 란?
+- HTML과 JavaScript를 사용하는 환경에서 그래픽을 그리는 수단을 제공하는 API 입니다.
+- 애니메이션, 게임 그래픽, 데이터 시각화, 사진 조작, 실시간 비디오 처리에 사용됩니다.
+- 주로 2D 그래픽에 중점을 둡니다.
+- WebGL API를 사용하여 만들어졌습니다.
+
+### WebGL(Web Graphics Library) 이란?
+- 플러그인을 사용하지 않고도 고성능 대화형 3D 및 2D 그래픽을 렌더링 하기 위한 JavaScript API 입니다.
+- 기존의 OpenGL ES 2.0 을 기반으로 제작되었습니다. (OpenGL : 2D 및 3D 컴퓨터 그래픽을 렌더링하기 위한 OpenGL 컴퓨터 그래픽 렌더링 API)
+- 위 사유 때문에 사용자 장치에서 제공되는 하드웨어 그래픽 가속을 활용할 수 있습니다. (하드웨어 그래픽 가속 : CPU의 그래픽 기능을 그래픽 카드와 분배하여 작업하는 기능)
+
+### 사용 방법
+MDN 참고 : https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
+```html
+<canvas id="canvas"></canvas>
+```
+```javascript
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+ctx.fillStyle = "green";
+ctx.fillRect(10, 10, 150, 100);
 ```
